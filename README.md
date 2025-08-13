@@ -12,4 +12,4 @@ In hopes of running HRI experiments with (bigger and scarier) robots
 
 ## How?
 
-TBA :D
+[Connect devices and install dependencies](docs/setup.md)
