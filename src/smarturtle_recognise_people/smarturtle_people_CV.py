@@ -3,6 +3,7 @@ from lerobot.cameras.opencv.camera_opencv import OpenCVCamera
 from lerobot.cameras.configs import ColorMode, Cv2Rotation
 
 from ultralytics import YOLO
+import torch 
 
 import rclpy
 from rclpy.node import Node
@@ -14,9 +15,14 @@ class PersonPublisher(Node):
         super().__init__("smarturtle_recognise_people")
         self.publisher_ = self.create_publisher(String, "topic", 10)
         timer_period = 0.5  # seconds
+        if torch.backends.cudnn.enabled and torch.cuda.is_available():
+            self.device='gpu'
+        else:
+            self.device='cpu'
+        print(f'Running models on device: {self.device}')
         self.timer = self.create_timer(timer_period, self.timer_callback)
         self.model = YOLO("yolo11n.pt")
-        self.i = 0
+ 
         # Instantiate and connect an `OpenCVCamera`, performing a warm-up read (default).
         self.camera = OpenCVCamera(config)
         self.camera.connect()
@@ -24,7 +30,8 @@ class PersonPublisher(Node):
     def timer_callback(self):
         frame = self.camera.async_read(timeout_ms=200)
         msg = String()
-        results = self.model(frame)
+        results = self.model(frame,device=self.device
+        )
         msg.data = f"Bboxes: {results[0].boxes.xywh}, Classes:{results[0].boxes.cls}"
         self.publisher_.publish(msg)
         self.get_logger().info('Publishing: "%s"' % msg.data)
