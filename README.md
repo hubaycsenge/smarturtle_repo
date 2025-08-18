@@ -1,15 +1,13 @@
-# Repository for SmarTurtle project
+# 🐢 SmarTurtle Project
 
-## What?
+## 📌 What?
+A repository for a **ROBOTIS TurtleBot3** equipped with a **Jetson Nano**. 
+The system supports both **ROS 2** and **Hugging Face LeRobot** frameworks.
 
-Repository for a ROBOTIS turtlebot with ROS2 jazzy equipped with a Jetson Nano.
-The system is capable of running codes in ROS2 and HuggingFace Lerobot frameworks. 
+## 🤔 Why?
+- Proof of concept (*#whynot?*)
+- Exploring the potential of running **HRI (Human-Robot Interaction)** experiments on larger, more capable robots.
 
-## Why?
+## ⚙️ How?
+👉 Follow the [setup guide](docs/setup.md) to connect devices and install dependencies.
 
-Proof of concept (#whynot?)
-In hopes of running HRI experiments with (bigger and scarier) robots
-
-## How?
-
-[Connect devices and install dependencies](docs/setup.md)
